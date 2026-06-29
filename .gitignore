@@ -1,0 +1,25 @@
+# Environment
+venv/
+.env
+
+# Conda
+*.egg-info
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data / cache
+data/raw/
+data/cache/
+*.csv
+*.json
+
+# VS Code
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
