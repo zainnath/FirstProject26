@@ -74,6 +74,15 @@ def get_player_losses(player, matches):
     player_losses = grass_matches[grass_matches['loser_name'] == player]
     return len(player_losses)
 
+def h2h_total(fav, underdog, matches):   
+    h2h_matches1 = matches[(matches['winner_name'] == fav) & (matches['loser_name'] == underdog)]
+    h2h_matches2 = matches[(matches['loser_name'] == fav) & (matches['winner_name'] == underdog)]
+
+    h2h_total = len(h2h_matches1) + len(h2h_matches2)
+
+    h2h_underdog_wins = matches[(matches['loser_name'] == fav) & (matches['winner_name'] == underdog)]
+
+    return h2h_total, len(h2h_underdog_wins)
 
 def ranking_factor(rank_underdog, rank_fav):
     return rank_fav/rank_underdog
@@ -112,7 +121,11 @@ def grass_record(fav, underdog, matches):
         print(wins_grass_fav, total_grass_fav, wins_grass_underdog, total_grass_underdog)
         return underdog_result/fav_result
     
-def h2h(total_matches, underdog_wins):
+def h2h(fav, underdog, matches):
+
+    total_matches, underdog_wins = h2h_total(fav, underdog, matches)
+    print(total_matches)
+    print(underdog_wins)
     if total_matches != 0:
         if underdog_wins == total_matches:
             return 1
@@ -147,4 +160,4 @@ def upset_predictor(rank_underdog, rank_fav, wins_grass_fav, total_grass_fav, wi
         return 0.1*factor1 + 0.7*factor2 + 0.2*factor3
 
 
-print(grass_record('Roger Federer', 'Rafael Nadal', matches))
+print(h2h('Roger Federer', 'Rafael Nadal', matches))
